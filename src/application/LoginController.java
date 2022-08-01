@@ -80,11 +80,15 @@ public class LoginController {
 
             stmt = connection.createStatement();
             rs = stmt.executeQuery(query);
+            
 
             if(!rs.next()) { 
                 AlertConfigs.invalidCredentialsAlert.showAndWait();
                 return false;
             }
+            rs.close();
+            stmt.close();
+            connection.close();
 
         } catch (Exception e) {
             e.printStackTrace();
