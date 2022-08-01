@@ -11,7 +11,7 @@ public class DBHandler {
     
 
     public Connection getConnection() {
-        String connectionString = "jdbc:mysql://" + Configs.dbhost + ":" + Configs.dbport + "/" + Configs.dbname;
+        String connectionString = "jdbc:mysql://" + Configs.dbhost + ":" + Configs.dbport + "/" + Configs.dbname + "?useTimeZone=true&serverTimezone=UTC";
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");

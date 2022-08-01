@@ -76,7 +76,7 @@ public class LoginController {
         try {
             connection = handler.getConnection();
 
-            String query = "SELECT userid FROM credentials WHERE username=\'" + username + "\'AND password\'" + password + "\'";
+            String query = "SELECT user_id FROM credentials WHERE username=\'" + username + "\' AND password=\'" + password + "\'";
 
             stmt = connection.createStatement();
             rs = stmt.executeQuery(query);
