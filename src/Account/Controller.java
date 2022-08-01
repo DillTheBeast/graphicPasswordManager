@@ -13,4 +13,4 @@ public class Controller {
         String javafxVersion = System.getProperty("javafx.version");
         label.setText("Hello, JavaFX " + javafxVersion + "\nRunning on Java " + javaVersion + ".");
     }
-}
+}                                                                                                                                                                      
