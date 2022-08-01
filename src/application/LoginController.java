@@ -1,5 +1,10 @@
 package application;
 
+import java.net.ConnectException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import DBHandler.DBHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,6 +12,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.Node;
 
 public class LoginController {
@@ -15,15 +22,41 @@ public class LoginController {
     Stage stage;
     Scene scene;
 
+    DBHandler handler;
+    Connection connection;
+    Statement stmt;
+    ResultSet rs;
+
     @FXML
     private Label label;
+
+    @FXML
+    private PasswordField passwordField;
+
+    @FXML
+    private TextField usernameField;
+
 
     public void initialize() {
 
     }
     
+    public LoginController() {
+        //Type variable name = new Type();
+        handler = new DBHandler();
+    }
+
     @FXML
     void onLoginClick(ActionEvent event) {
+        String username = usernameField.getText();
+        String password = passwordField.getText();
+
+        if(isValidCredentials(username, password)) {
+            switchScene(event);
+        }
+    }
+    
+    void switchScene(ActionEvent event) {
         try {
             //Transfering to the next Screen
             root = FXMLLoader.load(this.getClass().getResource("/fxml/home.fxml"));
@@ -35,5 +68,28 @@ public class LoginController {
         } catch (Exception e) {
             System.out.println("Scene is not able to be switched");
         }
+    }
+
+    //username and password = place holders for usernameField and passwordField
+    boolean isValidCredentials(String username, String password) {
+
+        try {
+            connection = handler.getConnection();
+
+            String query = "SELECT userid FROM credentials WHERE username=\'" + username + "\'AND password\'" + password + "\'";
+
+            stmt = connection.createStatement();
+            rs = stmt.executeQuery(query);
+
+            if(!rs.next()) { 
+                AlertConfigs.invalidCredentialsAlert.showAndWait();
+                return false;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 }                                                                                                                                                                      
