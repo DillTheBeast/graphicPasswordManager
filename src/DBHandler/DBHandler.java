@@ -3,6 +3,8 @@ package DBHandler;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+import application.AlertConfigs;
+
 public class DBHandler {
 
     private Connection dbConnection;
@@ -23,7 +25,9 @@ public class DBHandler {
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error in DB Connection");
-            alertConfigs.connectionError.showAndWait();
+            AlertConfigs.sqlErrorAlert.showAndWait();
         }
+
+        return dbConnection;
     }
 }

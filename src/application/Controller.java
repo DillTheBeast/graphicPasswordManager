@@ -1,4 +1,4 @@
-package Account;
+package application;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
