@@ -7,10 +7,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Account.Controller">
    <children>
-      <Label alignment="CENTER" layoutX="97.0" layoutY="14.0" prefHeight="92.0" prefWidth="406.0" text="Welcome to the Account" textAlignment="CENTER">
+      <Label alignment="CENTER" layoutX="28.0" layoutY="14.0" prefHeight="92.0" prefWidth="545.0" text="Please Sign in to your Account" textAlignment="CENTER">
          <font>
             <Font size="36.0" />
          </font>
@@ -27,6 +26,9 @@
          </font>
       </Label>
       <TextField layoutX="226.0" layoutY="149.0" />
-      <Button layoutX="150.0" layoutY="313.0" mnemonicParsing="false" onAction="#onEnterClick" prefHeight="73.0" prefWidth="301.0" text="Button" />
+      <Button layoutX="150.0" layoutY="313.0" mnemonicParsing="false" onAction="#onLoginClick" prefHeight="73.0" prefWidth="301.0" text="Sign in">
+         <font>
+            <Font size="34.0" />
+         </font></Button>
    </children>
 </AnchorPane>
