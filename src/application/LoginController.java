@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import javafx.scene.control.Label;
 import javafx.scene.Node;
 
-public class Controller {
+public class LoginController {
 
     Parent root;
     Stage stage;
