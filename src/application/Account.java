@@ -86,8 +86,25 @@ public class Account {
         return serviceList;
     }
 
-    public void setServiceList(ArrayList<Service> serviceList) {
-        this.serviceList = serviceList;
+    public void addService(Service newService) {
+        if(!containService(newService.getServiceName())) {
+            return;
+        }
+        serviceList.add(newService);
+    }
+    public boolean containService(String newServiceName) {
+        for(Service s : serviceList) {
+            if(s.getServiceName().equals(newServiceName)) {
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+    public void removeService(String serviceType) {
+        //Remove by the name of the service
+        
     }
     
 }
