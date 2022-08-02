@@ -11,7 +11,8 @@ public class Account {
     private String phone;
     private String address;
     private String state;
+ 
 
 
-    private Hashtable<String, String> services; 
+    private Hashtable<String, String> services;
 }
