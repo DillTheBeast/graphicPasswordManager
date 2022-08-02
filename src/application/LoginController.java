@@ -26,6 +26,7 @@ public class LoginController {
     Connection connection;
     Statement stmt;
     ResultSet rs;
+    
 
     @FXML
     private Label label;
@@ -96,4 +97,5 @@ public class LoginController {
         }
         return true;
     }
+
 }                                                                                                                                                                      
