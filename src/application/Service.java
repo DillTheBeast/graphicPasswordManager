@@ -15,12 +15,32 @@ public class Service {
         return serviceName;
     }
 
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
+    }
+
     public String getServiceUsername() {
         return serviceUsername;
+    }
+
+    public void setServiceUsername(String serviceUsername) {
+        this.serviceUsername = serviceUsername;
     }
 
     public String getServicePassword() {
         return servicePassword;
     }
 
+    public void setServicePassword(String servicePassword) {
+        this.servicePassword = servicePassword;
+    }
+
+    public String toString() {
+        return
+        "\nService name: " + serviceName
+        + "\nService username: " + serviceUsername
+        + "\nService password: " + servicePassword;
+
+    }
+   
 }
