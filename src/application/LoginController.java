@@ -29,6 +29,8 @@ public class LoginController {
     
     Account acct;
 
+    private static LoginController instance;
+
     @FXML
     private PasswordField passwordField;
 
@@ -43,6 +45,7 @@ public class LoginController {
     public LoginController() {
         //Type variable name = new Type();
         handler = new DBHandler();
+        instance = this;
     }
 
     @FXML
@@ -113,9 +116,6 @@ public class LoginController {
 
             acct = new Account(rs.getString("user_id"), rs.getString("name"), rs.getString("last_name"), rs.getString("address"), rs.getString("state"), rs.getString("email"), rs.getString("phone_number"));
 
-            System.out.println(acct.toString());
-            label.setText(acct.toString());
-
             rs.close();
             stmt.close();
             connection.close();
@@ -123,6 +123,14 @@ public class LoginController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static LoginController getInstance() {
+        return instance;
+    }
+
+    public Account getAccount() {
+        return this.acct;
     }
 
 }                                                                                                                                                                      
