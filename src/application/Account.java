@@ -92,19 +92,50 @@ public class Account {
         }
         serviceList.add(newService);
     }
+
+    //To be tested
     public boolean containService(String newServiceName) {
-        for(Service s : serviceList) {
-            if(s.getServiceName().equals(newServiceName)) {
-                return true;
-            }
+        return getServiceIndex(newServiceName) != -1;
+    }
+
+    //To be Tested
+    public boolean isValidService(Service service) {
+        return 
+            !(
+                service.getServiceName() == null 
+                || service.getServiceUsername() == null
+                ||service.getServicePassword() == null
+            )
+
+            ||
+
+            !(
+                service.getServiceName().replaceAll(" ", "").equals("")
+                || service.getServiceUsername().replaceAll(" ", "").equals("")
+                || service.getServicePassword().replaceAll(" ", "").equals("")
+            );
+    }
+
+    public void removeService(String serviceName) {
+        //Remove by the name of the service
+        int serviceIdx = getServiceIndex(serviceName);
+
+        if(serviceIdx == -1) {
+            return;
         }
-        return false;
+
+        serviceList.remove(serviceIdx);
 
     }
 
-    public void removeService(String serviceType) {
-        //Remove by the name of the service
-        
+    private int getServiceIndex(String serviceName) {
+        for(int i = 0; i < serviceList.size(); i++) {
+            if(serviceList.get(i).getServiceName().equals(serviceName)) {
+                return i;
+            }
+        }
+        return -1;
+
     }
     
 }
