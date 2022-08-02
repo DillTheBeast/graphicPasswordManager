@@ -13,5 +13,5 @@ public class Account {
     private String state;
 
 
-    private Hashtable<String, String> services;
+    private Hashtable<String, String> services; 
 }
