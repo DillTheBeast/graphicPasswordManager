@@ -108,13 +108,27 @@ public class LoginController {
         try {
             connection = handler.getConnection();
 
-            String query = "SELECT * FROM password_manager.accounts WHERE user_id = \'" + acct.getUserid() + "\'";
+            String query = "SELECT * FROM ACCOUNTS WHERE accounts.user_id =\'" + acct.getUserid() + "\'";
 
             stmt = connection.createStatement();
             rs = stmt.executeQuery(query);
             rs.next();
 
             acct = new Account(rs.getString("user_id"), rs.getString("name"), rs.getString("last_name"), rs.getString("address"), rs.getString("state"), rs.getString("email"), rs.getString("phone_number"));
+            
+            String query2 = "SELECT * FROM Services WHERE services.user_id =\'" + acct.getUserid() + "\'";
+
+            stmt = connection.createStatement();
+            rs = stmt.executeQuery(query2);
+
+            while(rs.next()) {
+                acct.addService(new Service
+                (
+                    rs.getString("service"), 
+                    rs.getString("password"), 
+                    rs.getString("username")
+                ));
+            }
 
             rs.close();
             stmt.close();

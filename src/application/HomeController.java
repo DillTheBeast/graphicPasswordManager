@@ -17,7 +17,5 @@ public class HomeController implements Initializable{
     public void initialize(URL url, ResourceBundle arg0) {
         acct = LoginController.getInstance().getAccount();
         label.setText(acct.toString());
-        System.out.println(acct.toString());
-        System.out.println("Hello");
     }
 }

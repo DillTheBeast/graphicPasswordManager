@@ -24,6 +24,7 @@ public class Account {
         this.phone = phone;
         this.address = address;
         this.state = state;
+        serviceList = new ArrayList<Service>();
     }
 
     public Account() {
@@ -92,10 +93,10 @@ public class Account {
     }
 
     public void addService(Service newService) {
-        if(!containService(newService.getServiceName())) {
-            return;
+        if(!containService(newService.getServiceName()) && isValidService(newService)) {
+            serviceList.add(newService);
         }
-        serviceList.add(newService);
+        
     }
 
     //To be tested
@@ -105,6 +106,7 @@ public class Account {
 
     //To be Tested
     public boolean isValidService(Service service) {
+
         return 
             !(
                 service.getServiceName() == null 
