@@ -15,8 +15,8 @@ public class Account {
     
     private ArrayList<Service> serviceList = new ArrayList<>();
 
-    public Account(ArrayList<Service> serviceList, String userid, String name, String lastname, String email, String phone, String address, String state) {
-        this.serviceList = serviceList;
+    public Account(String userid, String name, String lastname, String email, String state, String address, String phone) {
+        //this.serviceList = serviceList;
         this.userid = userid;
         this.name = name;
         this.lastname = lastname;
@@ -27,7 +27,7 @@ public class Account {
     }
 
     public Account() {
-        
+
     }
 
 

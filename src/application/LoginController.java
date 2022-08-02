@@ -30,9 +30,6 @@ public class LoginController {
     Account acct;
 
     @FXML
-    private Label label;
-
-    @FXML
     private PasswordField passwordField;
 
     @FXML
@@ -54,6 +51,7 @@ public class LoginController {
         String password = passwordField.getText();
 
         if(isValidCredentials(username, password)) {
+            initializeAccount();
             switchScene(event);
         }
     }
@@ -80,6 +78,7 @@ public class LoginController {
 
             String query = "SELECT user_id FROM credentials WHERE username=\'" + username + "\' AND password=\'" + password + "\'";
 
+
             stmt = connection.createStatement();
             rs = stmt.executeQuery(query);
             
@@ -103,7 +102,27 @@ public class LoginController {
     }
 
     public void initializeAccount() {
+        try {
+            connection = handler.getConnection();
 
+            String query = "SELECT * FROM password_manager.accounts WHERE user_id = \'" + acct.getUserid() + "\'";
+
+            stmt = connection.createStatement();
+            rs = stmt.executeQuery(query);
+            rs.next();
+
+            acct = new Account(rs.getString("user_id"), rs.getString("name"), rs.getString("last_name"), rs.getString("address"), rs.getString("state"), rs.getString("email"), rs.getString("phone_number"));
+
+            System.out.println(acct.toString());
+            label.setText(acct.toString());
+
+            rs.close();
+            stmt.close();
+            connection.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }                                                                                                                                                                      
