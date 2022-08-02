@@ -26,6 +26,11 @@ public class Account {
         this.state = state;
     }
 
+    public Account() {
+        
+    }
+
+
     public String getUserid() {
         return userid;
     }
@@ -137,5 +142,24 @@ public class Account {
         return -1;
 
     }
-    
+
+    public String toString() {
+        String holder = "";
+
+        for(Service s : serviceList) {
+            holder += s.toString() + "\n";
+        }
+
+        return 
+        "User ID: " + userid
+        + "\nName: " + name
+        + "\nLast Name: " + lastname
+        + "\nEmail: " + email
+        + "\nPhone Number: " + phone
+        + "\nAddress: " + address
+        + "\nState: " + state
+        + "\nServices: " + holder;
+
+
+    }    
 }

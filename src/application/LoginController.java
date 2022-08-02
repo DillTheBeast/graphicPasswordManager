@@ -27,6 +27,7 @@ public class LoginController {
     Statement stmt;
     ResultSet rs;
     
+    Account acct;
 
     @FXML
     private Label label;
@@ -82,11 +83,14 @@ public class LoginController {
             stmt = connection.createStatement();
             rs = stmt.executeQuery(query);
             
-
             if(!rs.next()) { 
                 AlertConfigs.invalidCredentialsAlert.showAndWait();
                 return false;
             }
+
+            acct = new Account();
+            acct.setUserid(rs.getString("user_id"));
+
             rs.close();
             stmt.close();
             connection.close();
@@ -96,6 +100,10 @@ public class LoginController {
             return false;
         }
         return true;
+    }
+
+    public void initializeAccount() {
+
     }
 
 }                                                                                                                                                                      
