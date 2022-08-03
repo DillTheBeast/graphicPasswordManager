@@ -33,7 +33,6 @@ public class LoginController {
     Connection connection;
     Statement stmt;
     ResultSet rs;
-    
     Account acct;
 
     private static LoginController instance;
