@@ -49,8 +49,21 @@ public class SignUpController {
 
     @FXML
     void onEnterClick(ActionEvent event) {
-        if(usernameField.equals("")) {
+        if(usernameField.getText().equals("") 
+        || passwordField.getText().equals("") 
+        || firstNameField.getText().equals("") 
+        || lastNameField.getText().equals("") 
+        || addressField.getText().equals("")
+        || stateField.getText().equals("")
+        || emailField.getText().equals("")
+        || phoneNumberField.getText().equals("")
+        || serviceField.getText().equals("")
+        || servicePasswordFIeld.getText().equals("")
+        || serviceUsernameField.getText().equals("")) {
             System.out.println("Hi");
+        }
+        else {
+            System.out.println("Test");
         }
     }
 }
