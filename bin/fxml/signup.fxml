@@ -11,7 +11,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SignUpController">
    <children>
-      <Button alignment="CENTER" layoutX="411.0" layoutY="18.0" mnemonicParsing="false" onAction="#onEnterClick" prefHeight="373.0" prefWidth="171.0" text="Sign Up" textAlignment="CENTER" wrapText="true">
+      <Button alignment="CENTER" layoutX="411.0" layoutY="86.0" mnemonicParsing="false" onAction="#onEnterClick" prefHeight="305.0" prefWidth="171.0" text="Sign Up" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="47.0" />
          </font>
@@ -73,21 +73,26 @@
                   <Font size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="usernameField" GridPane.columnIndex="1" />
-            <TextField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="firstNameField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="lastNameField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField fx:id="stateField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <TextField fx:id="phoneNumberField" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <TextField fx:id="passwordConfirmationField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="usernameField" promptText="Username" GridPane.columnIndex="1" />
+            <TextField fx:id="passwordField" promptText="Password" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="firstNameField" promptText="First Name" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="lastNameField" promptText="Last Name" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="stateField" promptText="One of the 50 State's" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="emailField" promptText="user@domain.com" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="phoneNumberField" promptText="123-456-7891" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <TextField fx:id="passwordConfirmationField" promptText="Rewrite Password" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label alignment="CENTER" prefHeight="31.0" prefWidth="212.0" text="Enter your address" GridPane.rowIndex="6">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="addressField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="addressField" promptText="Address" GridPane.columnIndex="1" GridPane.rowIndex="6" />
          </children>
       </GridPane>
+      <Button layoutX="410.0" layoutY="4.0" mnemonicParsing="false" onAction="#onBackToLoginClick" prefHeight="76.0" prefWidth="171.0" text="Back to Login" wrapText="true">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

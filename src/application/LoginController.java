@@ -26,6 +26,9 @@ public class LoginController {
     Scene scene;
     Scene scene2;
 
+    private final String HOME_SCREEN_PATH = "/fxml/home.fxml";
+    private final String SIGNUP_SCREEN_PATH = "/fxml/signup.fxml";
+
     DBHandler handler;
     Connection connection;
     Statement stmt;
@@ -59,19 +62,19 @@ public class LoginController {
 
         if(isValidCredentials(username, password)) {
             initializeAccount();
-            switchSceneInformation(event);
+            switchScene(event, HOME_SCREEN_PATH);
         }
     }
 
     @FXML
     void onSignUpClick(ActionEvent event) throws IOException {
-        switchSceneSignUp(event);
+        switchScene(event, SIGNUP_SCREEN_PATH);
     }
     
-    void switchSceneInformation(ActionEvent event) {
+    void switchScene(ActionEvent event, String path) {
         try {
             //Transfering to the next Screen
-            root = FXMLLoader.load(this.getClass().getResource("/fxml/home.fxml"));
+            root = FXMLLoader.load(this.getClass().getResource(path));
             stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
@@ -80,20 +83,6 @@ public class LoginController {
         } catch (Exception e) {
             System.out.println("Scene is not able to be switched");
         }
-    }
-
-    void switchSceneSignUp(ActionEvent event) throws IOException {
-        //try {
-            //Transfering to the next Screen
-            root2 = FXMLLoader.load(this.getClass().getResource("/fxml/signup.fxml"));
-            stage2 = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            scene2 = new Scene(root2);
-            stage2.setScene(scene2);
-            stage2.show();
-
-        //} catch (Exception e) {
-            //System.out.println("Scene is not able to be switched");
-        //}
     }
 
     //username and password = place holders for usernameField and passwordField
