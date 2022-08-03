@@ -19,8 +19,11 @@ import javafx.scene.Node;
 public class LoginController {
 
     Parent root;
+    Parent root2;
     Stage stage;
+    Stage stage2;
     Scene scene;
+    Scene scene2;
 
     DBHandler handler;
     Connection connection;
@@ -55,11 +58,16 @@ public class LoginController {
 
         if(isValidCredentials(username, password)) {
             initializeAccount();
-            switchScene(event);
+            switchSceneInformation(event);
         }
     }
+
+    @FXML
+    void onSignUpClick(ActionEvent event) {
+        switchSceneSignUp(event);
+    }
     
-    void switchScene(ActionEvent event) {
+    void switchSceneInformation(ActionEvent event) {
         try {
             //Transfering to the next Screen
             root = FXMLLoader.load(this.getClass().getResource("/fxml/home.fxml"));
@@ -67,6 +75,20 @@ public class LoginController {
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
+
+        } catch (Exception e) {
+            System.out.println("Scene is not able to be switched");
+        }
+    }
+
+    void switchSceneSignUp(ActionEvent event) {
+        try {
+            //Transfering to the next Screen
+            root2 = FXMLLoader.load(this.getClass().getResource("/fxml/signup.fxml"));
+            stage2 = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            scene2 = new Scene(root2);
+            stage2.setScene(scene2);
+            stage2.show();
 
         } catch (Exception e) {
             System.out.println("Scene is not able to be switched");
