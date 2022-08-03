@@ -1,5 +1,6 @@
 package application;
 
+import java.io.IOException;
 import java.net.ConnectException;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -63,7 +64,7 @@ public class LoginController {
     }
 
     @FXML
-    void onSignUpClick(ActionEvent event) {
+    void onSignUpClick(ActionEvent event) throws IOException {
         switchSceneSignUp(event);
     }
     
@@ -81,8 +82,8 @@ public class LoginController {
         }
     }
 
-    void switchSceneSignUp(ActionEvent event) {
-        try {
+    void switchSceneSignUp(ActionEvent event) throws IOException {
+        //try {
             //Transfering to the next Screen
             root2 = FXMLLoader.load(this.getClass().getResource("/fxml/signup.fxml"));
             stage2 = (Stage) ((Node)event.getSource()).getScene().getWindow();
@@ -90,9 +91,9 @@ public class LoginController {
             stage2.setScene(scene2);
             stage2.show();
 
-        } catch (Exception e) {
-            System.out.println("Scene is not able to be switched");
-        }
+        //} catch (Exception e) {
+            //System.out.println("Scene is not able to be switched");
+        //}
     }
 
     //username and password = place holders for usernameField and passwordField
