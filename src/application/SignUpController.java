@@ -1,6 +1,7 @@
 package application;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -72,16 +73,17 @@ public class SignUpController {
             AlertConfigs.invalidInput.setContentText("There is an empty text field that needs to have text in it");
             AlertConfigs.invalidInput.showAndWait();
         }
-        if(
+         if(
             isValidNames()
             &&isValidPhoneNumber()
             &&isValidEmail()
             &&isValidUsername()
             && isValidPassword()
             && isValidAdress()
-        ) {
-            switchScene(event, HOME_SCREEN_PATH);
-        }
+         ) {
+                addRow();
+                switchScene(event, HOME_SCREEN_PATH);
+         }
 
     }
 
@@ -152,7 +154,7 @@ public class SignUpController {
         String regex = "^(\\d{3}[- ]?){2}\\d{4}$";
         Pattern p = Pattern.compile(regex);
         if(p.matches(regex, phoneNumberField.getText()) == false)  {
-            AlertConfigs.invalidInput.setContentText("Invalid phone number. The phone number should look like: 9876543210, 987 654 3210, 987-654-3210, 987 654-3210, 987 6543210, etc");
+            AlertConfigs.invalidInput.setContentText("Invalid phone number. The phone number should look like: \n9876543210, 987 654 3210, 987-654-3210, 987 654-3210, 987 6543210, etc");
             AlertConfigs.invalidInput.showAndWait();
             return false;
         }
@@ -175,7 +177,7 @@ public class SignUpController {
     //Checking if the username is already taken and if the username is 5 or more characters
     private boolean isValidUsername() throws SQLException {
         if(usernameField.getText().length() < 5) {
-            AlertConfigs.invalidInput.setContentText("The username given is too small. It needs to be five or more letters");
+            AlertConfigs.invalidInput.setContentText("The username given is too small. It needs to be five or more\n letters");
             AlertConfigs.invalidInput.showAndWait();
             return false;
         }
@@ -225,7 +227,7 @@ public class SignUpController {
     //The address checker is in regex
     private boolean isValidAdress() {
         if(addressField.getText().length() < 5) {
-            AlertConfigs.invalidInput.setContentText("The adress needs to be 5 or more characters.");
+            AlertConfigs.invalidInput.setContentText("The address needs to be 5 or more characters.");
             AlertConfigs.invalidInput.showAndWait();
             return false;
         }
@@ -249,4 +251,34 @@ public class SignUpController {
         return p.matches(regex, word);
     }
 
+    private boolean addRow() {
+        int currMaxUserID;
+        try {
+            connection = handler.getConnection();
+
+            //Get max user id
+            String user_idQuery = "SELECT max(user_id) as user_id FROM password_manager.credentials";
+
+
+            stmt = connection.createStatement();
+            rs = stmt.executeQuery(user_idQuery);
+            rs.next();
+            currMaxUserID = Integer.parseInt(rs.getString("user_id"));
+            currMaxUserID++;
+
+            //adding new account
+            String query = "Insert into credentials value(" + currMaxUserID + ", \'" + usernameField.getText() + "\', \'" + passwordField.getText() + "\')";
+
+            PreparedStatement p = connection.prepareStatement(query);
+            p.executeUpdate(query);
+
+            rs.close();
+            stmt.close();
+            connection.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
 }
