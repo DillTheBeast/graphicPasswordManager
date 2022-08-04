@@ -82,7 +82,7 @@ public class SignUpController {
             && isValidAdress()
          ) {
                 addRow();
-                switchScene(event, HOME_SCREEN_PATH);
+                switchScene(event, LOGIN_SCREEN_PATH);
          }
 
     }
@@ -266,11 +266,17 @@ public class SignUpController {
             currMaxUserID = Integer.parseInt(rs.getString("user_id"));
             currMaxUserID++;
 
-            //adding new account
-            String query = "Insert into credentials value(" + currMaxUserID + ", \'" + usernameField.getText() + "\', \'" + passwordField.getText() + "\')";
+            //adding new credentials
+            String credentialsQuery = "Insert into credentials value(" + currMaxUserID + ", \'" + usernameField.getText() + "\', \'" + passwordField.getText() + "\')";
 
-            PreparedStatement p = connection.prepareStatement(query);
-            p.executeUpdate(query);
+            PreparedStatement p = connection.prepareStatement(credentialsQuery);
+            p.executeUpdate(credentialsQuery);
+
+            //adding new accounts
+            String accountsQuery = "Insert into accounts value(" + currMaxUserID + ", \'" + firstNameField.getText() + "\', \'" + lastNameField.getText() + "\', \'" + addressField.getText() + "\', \'" + stateField.getText() + "\', \'" + emailField.getText() + "\', \'" + phoneNumberField.getText() + "\')";
+
+            PreparedStatement pr = connection.prepareStatement(accountsQuery);
+            pr.executeUpdate(accountsQuery);
 
             rs.close();
             stmt.close();
