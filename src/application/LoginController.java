@@ -61,21 +61,24 @@ public class LoginController {
 
         if(isValidCredentials(username, password)) {
             initializeAccount();
-            switchScene(event, HOME_SCREEN_PATH);
+            switchScene(event, HOME_SCREEN_PATH, "/css/homeapplication.css");
         }
     }
 
     @FXML
     void onSignUpClick(ActionEvent event) throws IOException {
-        switchScene(event, SIGNUP_SCREEN_PATH);
+        switchScene(event, SIGNUP_SCREEN_PATH, "/css/signupapplication.css");
     }
     
-    void switchScene(ActionEvent event, String path) {
+    void switchScene(ActionEvent event, String path, String styleSheetPath) {
         try {
             //Transfering to the next Screen
+
             root = FXMLLoader.load(this.getClass().getResource(path));
             stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+
             scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource(styleSheetPath).toExternalForm());
             stage.setScene(scene);
             stage.show();
 

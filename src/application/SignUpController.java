@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -73,16 +74,21 @@ public class SignUpController {
             AlertConfigs.invalidInput.setContentText("There is an empty text field that needs to have text in it");
             AlertConfigs.invalidInput.showAndWait();
         }
-         if(
+        if(
             isValidNames()
             &&isValidPhoneNumber()
             &&isValidEmail()
             &&isValidUsername()
             && isValidPassword()
             && isValidAdress()
-         ) {
-                addRow();
-                switchScene(event, LOGIN_SCREEN_PATH);
+        ) {
+                if(addRow()) {
+                    switchScene(event, LOGIN_SCREEN_PATH);
+                }
+                else {
+                    AlertConfigs.invalidInput.setContentText("Unable to sign up");
+                    AlertConfigs.invalidInput.showAndWait();
+                }
          }
 
     }
@@ -284,6 +290,8 @@ public class SignUpController {
 
         } catch (Exception e) {
             e.printStackTrace();
+            AlertConfigs.sqlErrorAlert.showAndWait();
+            return false;
         }
         return true;
     }
