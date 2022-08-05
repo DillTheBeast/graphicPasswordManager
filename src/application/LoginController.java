@@ -34,6 +34,7 @@ public class LoginController {
     Statement stmt;
     ResultSet rs;
     Account acct;
+    Account acct2;
 
     private static LoginController instance;
 
@@ -128,7 +129,8 @@ public class LoginController {
             rs = stmt.executeQuery(query);
             rs.next();
 
-            acct = new Account(rs.getString("user_id"), rs.getString("name"), rs.getString("last_name"), rs.getString("address"), rs.getString("state"), rs.getString("email"), rs.getString("phone_number"));
+            acct = new Account(rs.getString("user_id"), rs.getString("name"), rs.getString("last_name"), rs.getString("email"), rs.getString("state"), rs.getString("address"), rs.getString("phone_number"));
+            acct2 = new Account(rs.getString("user_id"), rs.getString("name"), rs.getString("last_name"), rs.getString("email"), rs.getString("state"), rs.getString("address"), rs.getString("phone_number"));
             
             String query2 = "SELECT * FROM Services WHERE services.user_id =\'" + acct.getUserid() + "\'";
 
@@ -159,6 +161,10 @@ public class LoginController {
 
     public Account getAccount() {
         return this.acct;
+    }
+
+    public Account getAccount2() {
+        return this.acct2;
     }
 
 }                                                                                                                                                                      

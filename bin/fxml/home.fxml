@@ -20,38 +20,23 @@
             <Font size="21.0" />
          </font>
       </Button>
-      <GridPane fx:id="serviceGridPane" gridLinesVisible="true" layoutX="14.0" layoutY="91.0" prefHeight="107.0" prefWidth="317.0">
-        <columnConstraints>
-          <ColumnConstraints fx:id="serviceNameColumn" hgrow="SOMETIMES" maxWidth="148.0" minWidth="10.0" prefWidth="148.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="101.0" minWidth="10.0" prefWidth="64.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="133.0" prefWidth="188.0" text="Service Name" textAlignment="CENTER" wrapText="true">
-               <font>
-                  <Font size="29.0" />
-               </font>
-            </Label>
-            <Button mnemonicParsing="false" prefHeight="125.0" prefWidth="188.0" text="Edit" GridPane.columnIndex="1">
-               <font>
-                  <Font size="19.0" />
-               </font>
-            </Button>
-            <Button mnemonicParsing="false" prefHeight="125.0" prefWidth="188.0" text="Remove" wrapText="true" GridPane.columnIndex="2">
-               <font>
-                  <Font size="19.0" />
-               </font>
-            </Button>
-         </children>
-      </GridPane>
-      <Label alignment="CENTER" layoutX="48.0" layoutY="42.0" prefHeight="39.0" prefWidth="227.0" text="Services">
+      <Label alignment="CENTER" layoutX="85.0" layoutY="40.0" prefHeight="39.0" prefWidth="227.0" text="Services">
          <font>
-            <Font size="18.0" />
+            <Font size="30.0" />
          </font>
       </Label>
-      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="498.0" layoutY="7.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="92.0" text="Show Personal Info" textAlignment="CENTER" wrapText="true" />
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="498.0" layoutY="7.0" mnemonicParsing="false" onAction="#onShowInfoClick" prefHeight="78.0" prefWidth="92.0" text="Show Personal Info" textAlignment="CENTER" wrapText="true" />
+      <GridPane fx:id="serviceGridPane" gridLinesVisible="true" layoutX="3.0" layoutY="105.0" prefHeight="50.0" prefWidth="435.0">
+         <columnConstraints>
+            <ColumnConstraints fx:id="serviceNameColumn" hgrow="SOMETIMES" maxWidth="312.0" minWidth="10.0" prefWidth="129.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="312.0" minWidth="10.0" prefWidth="130.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="312.0" minWidth="10.0" prefWidth="128.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="312.0" minWidth="10.0" prefWidth="52.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+      <Label fx:id="personalInfoLabel" alignment="TOP_LEFT" layoutX="438.0" layoutY="105.0" prefHeight="321.0" prefWidth="159.0" textAlignment="CENTER" wrapText="true" />
    </children>
 </AnchorPane>
