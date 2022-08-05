@@ -7,18 +7,31 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Observable;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import com.mysql.cj.conf.ConnectionUrlParser.Pair;
+import com.mysql.cj.result.Row;
+
 import DBHandler.DBHandler;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
@@ -53,7 +66,70 @@ public class HomeController implements Initializable{
 
     @FXML
     void onAddServiceClick(ActionEvent event) {
+        //Creating custom dialog
 
+        Dialog<Service> dialog = new Dialog<>();
+        dialog.setTitle("Add Service");
+        dialog.setHeaderText("Add new Service");
+
+// Set the button types.
+ButtonType addServiceType = new ButtonType("OK", ButtonData.OK_DONE);
+dialog.getDialogPane().getButtonTypes().addAll(addServiceType, ButtonType.CANCEL);
+
+// Create the username and password labels and fields.
+GridPane grid = new GridPane();
+grid.setHgap(10);
+grid.setVgap(10);
+grid.setPadding(new Insets(20, 150, 10, 10));
+
+TextField serviceName = new TextField();
+serviceName.setPromptText("Ex: Netflix");
+TextField serviceUsername = new TextField();
+serviceUsername.setPromptText("Username");
+PasswordField servicePassword = new PasswordField();
+
+//Adding labels to the grid
+grid.add(new Label("Service:"), 0, 0);
+grid.add(serviceName, 1, 0);
+grid.add(new Label("Username:"), 0, 1);
+grid.add(serviceUsername, 1, 1);
+grid.add(new Label("Password:"), 0, 2);
+grid.add(servicePassword, 1, 2);      
+
+
+dialog.getDialogPane().setContent(grid);
+
+
+//Will grab add the values inside the texfields, bring them together into a service object and then return it
+dialog.setResultConverter(dialogButton -> {
+    if(dialogButton == addServiceType) {
+        return new Service(serviceName.getText(), serviceUsername.getText(), servicePassword.getText());
+    }
+    return null;
+});
+
+//Storing the result of the function above
+//You need to do this because this can take in something null
+Optional<Service> rslt = dialog.showAndWait();
+
+//For debugging purposes
+rslt.ifPresent(service -> {
+    System.out.println(
+        "Username=" + service.getServiceUsername()
+        + ", Password=" + service.getServicePassword()
+        + ", Service Name=" + service.getServiceName()
+    );
+});
+
+Service newService = rslt.get();
+
+if(acct.isValidService(newService)) {
+    System.out.println("Is a valid service confirmed.");
+    boolean addedToDatabase = addToDB(newService);
+    System.out.println("Added successfully -> " + addedToDatabase);
+    addToServiceGrid(newService);
+
+}
     }
 
     @FXML
@@ -83,8 +159,10 @@ public class HomeController implements Initializable{
 
         boolean isCorrectPassword = checkPassword(pswdInput);
 
-        if(isCorrectPassword)
-            deleteFromDB(result.get());
+        if(isCorrectPassword) {
+            deleteFromDB(((Button)event.getSource()).getId());
+            deleteFromGrid(((Button)event.getSource()).getId());
+        }
 
     }
 
@@ -102,18 +180,20 @@ public class HomeController implements Initializable{
 
             deleteButton.setId(currS.get(i).getServiceName());
 
-            Label curr = new Label(currS.get(i).getServiceName());
-            curr.setId(currS.get(i).getServiceName());
+            Label currName = new Label(currS.get(i).getServiceName());
+            currName.setId(currS.get(i).getServiceName());
 
 
-            serviceGridPane.addRow(i+1, new Label (currS.get(i).getServiceName()), new Label (currS.get(i).getServiceUsername()), new Label (currS.get(i).getServicePassword()), deleteButton);
+            serviceGridPane.addRow(i+1, currName, new Label (currS.get(i).getServiceUsername()), new Label (currS.get(i).getServicePassword()), deleteButton);
         }
     }
 
     private boolean checkPassword(String inputPassword) {
         try {
             connection = handler.getConnection();
+            //Fix this: should be SELECTYT user_id FROM credentials WHERE username=... and password=...
             String query = "SELECT user_id FROM credentials WHERE password=\'" + inputPassword + "\'";
+            //Fix this
             stmt = connection.createStatement();
             rs = stmt.executeQuery(query);
             
@@ -147,6 +227,7 @@ public class HomeController implements Initializable{
     //DB is Database
     private boolean deleteFromDB(String serviceToDelete) {
         try {
+            System.out.println("Trying to delete service: " + serviceToDelete);
             connection = handler.getConnection();
             String query = "DELETE FROM services where service=\'" + serviceToDelete + "\'";
             PreparedStatement p = connection.prepareStatement(query);
@@ -166,5 +247,88 @@ public class HomeController implements Initializable{
         }
 
         return false;
+    }
+
+    private void deleteFromGrid(String serviceToDelete) {
+
+        //Starting at service name and going up to delete
+        for(int i = 0; i < serviceGridPane.getChildren().size(); i++) {
+            try {
+                Node curr = serviceGridPane.getChildren().get(i);
+
+                //If any of the id's match the id that was passed in
+                if(curr.getId().equals(serviceToDelete)) {
+                    serviceGridPane.getChildren().remove(i, i + 4);
+                }
+            } catch (Exception e) {
+                e.getMessage();
+            }
+        }
+    }
+
+    private boolean addToDB(Service newService) {
+        try {
+            System.out.println("... adding to database.");
+            connection = handler.getConnection();
+            stmt = connection.createStatement();
+
+            //Get current max id
+            String query = "SELECT MAX(count) as maxCount FROM services";
+
+            rs = stmt.executeQuery(query);
+            rs.next();
+            int currentMax = Integer.parseInt(rs.getString("maxCount"));
+
+            System.out.println("Current max count in services: " + currentMax);
+
+            query = "INSERT into services VALUES ("
+            + (++currentMax)
+            + ", " + acct.getUserid()
+            + ", \'" + newService.getServiceName() + "\'"
+            + ", \'" + newService.getServiceUsername() + "\'"
+            + ", \'" + newService.getServicePassword() + "\'"
+            + ");";
+
+            PreparedStatement p = connection.prepareStatement(query);
+            p.executeUpdate(query);
+
+            System.out.println("Successfully added to database");
+
+            rs.close();
+            stmt.close();
+            connection.close();
+
+        } catch (Exception e) {
+            if(e instanceof SQLException) {
+            AlertConfigs.sqlErrorAlert.showAndWait();
+            System.err.println("Error adding new Service to database");
+            e.printStackTrace();
+            }
+            else
+                AlertConfigs.unknownErrorAlert.showAndWait();
+        }
+        return false;
+    }
+
+    private void addToServiceGrid(Service newService) {
+        int rowIdx = serviceGridPane.getChildren().size() / 4;
+
+        Button deleteButton = new Button("Delete");
+
+        deleteButton.setOnMouseClicked(event -> {
+            handleDeleteButton(event);
+        });
+
+        deleteButton.setId(newService.getServiceName());
+
+        Label currServiceName = new Label(newService.getServiceName());
+        currServiceName.setId(newService.getServiceName());
+
+        Label currServiceUsername = new Label(newService.getServiceUsername());
+
+        Label currServicePassword = new Label(newService.getServicePassword());
+
+        serviceGridPane.addRow(rowIdx+1, currServiceName, currServiceUsername, currServicePassword, deleteButton);
+
     }
 }
