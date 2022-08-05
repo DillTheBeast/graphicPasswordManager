@@ -15,7 +15,7 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <Button layoutX="447.0" layoutY="429.0" mnemonicParsing="false" onAction="#onAddRowClick" prefHeight="107.0" prefWidth="139.0" text="Add Row">
+      <Button layoutX="447.0" layoutY="429.0" mnemonicParsing="false" onAction="#onAddServiceClick" prefHeight="107.0" prefWidth="139.0" text="Add Service">
          <font>
             <Font size="21.0" />
          </font>

@@ -84,6 +84,7 @@ public class LoginController {
             stage.show();
 
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("Scene is not able to be switched");
         }
     }

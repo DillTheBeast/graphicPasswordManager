@@ -19,4 +19,8 @@ public class AlertConfigs {
 
     //Invalid input manages most of the errors and when you need to use it you just reset the text right before calling it
     public static Alert invalidInput = new Alert(AlertType.ERROR, "");
+
+    public static Alert cannotDeleteServiceAlert = new Alert(AlertType.ERROR, "Cannot delete service. Please check your internet connection.");
+
+    public static Alert missingFieldAlert = new Alert(AlertType.ERROR, "Error. Invalid input. You are missing a field.");
 }
