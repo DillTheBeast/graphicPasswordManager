@@ -3,6 +3,7 @@
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "c:\\Users\\User\\Documents\\mysql-connector-java-8.0.30\\mysql-connector-java-8.0.30\\mysql-connector-java-8.0.30.jar"
+        "C:/Users/dillonmaltese/Downloads/javafx-sdk-18.0.2 2/**/*.jar",
+        "C:/Users/dillonmaltese/Downloads/mysql-connector-java-8.0.30/mysql-connector-java-8.0.30.jar"
     ]
 }
