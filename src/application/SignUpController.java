@@ -83,7 +83,7 @@ public class SignUpController {
             && isValidAdress()
         ) {
                 if(addRow()) {
-                    switchScene(event, LOGIN_SCREEN_PATH);
+                    switchScene(event, LOGIN_SCREEN_PATH, "/css/loginapplication.css");
                 }
                 else {
                     AlertConfigs.invalidInput.setContentText("Unable to sign up");
@@ -95,15 +95,18 @@ public class SignUpController {
 
     @FXML
     void onBackToLoginClick(ActionEvent event) {
-        switchScene(event, LOGIN_SCREEN_PATH);
+        switchScene(event, LOGIN_SCREEN_PATH, "/css/homeapplication.css");
     }
 
-    void switchScene(ActionEvent event, String path) {
+    void switchScene(ActionEvent event, String path, String styleSheetPath) {
         try {
             //Transfering to the next Screen
+            
             root = FXMLLoader.load(this.getClass().getResource(path));
             stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+
             scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource(styleSheetPath).toExternalForm());
             stage.setScene(scene);
             stage.show();
 

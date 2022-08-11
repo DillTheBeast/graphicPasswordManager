@@ -1,5 +1,6 @@
 package application;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,6 +23,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -34,6 +37,7 @@ import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
 public class HomeController implements Initializable{
     
@@ -53,6 +57,11 @@ public class HomeController implements Initializable{
     Connection connection;
     Statement stmt;
     ResultSet rs;
+    Parent root;
+    Stage stage;
+    Scene scene;
+
+    private final String LOGIN_SCREEN_PATH = "/fxml/login.fxml";
     
     public void initialize(URL url, ResourceBundle arg0) {
         handler = new DBHandler();
@@ -136,6 +145,29 @@ if(acct.isValidService(newService)) {
     void onShowInfoClick() {
         //Showing personal Info
         personalInfoLabel.setText(acct2.toString());
+    }
+
+    @FXML
+    void onSignOutClick(ActionEvent event) throws IOException {
+        switchScene(event, LOGIN_SCREEN_PATH, "/css/loginapplication.css");
+    }
+
+    void switchScene(ActionEvent event, String path, String styleSheetPath) {
+        try {
+            //Transfering to the next Screen
+
+            root = FXMLLoader.load(this.getClass().getResource(path));
+            stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+
+            scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource(styleSheetPath).toExternalForm());
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Scene is not able to be switched");
+        }
     }
 
     private void handleDeleteButton(MouseEvent event) {

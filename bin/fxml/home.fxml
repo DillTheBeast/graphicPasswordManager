@@ -10,23 +10,18 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.HomeController">
    <children>
-      <Label fx:id="welcomeLabel" alignment="TOP_LEFT" layoutX="6.0" layoutY="3.0" prefHeight="39.0" prefWidth="280.0" wrapText="true">
+      <Label fx:id="welcomeLabel" alignment="TOP_LEFT" layoutX="6.0" layoutY="3.0" prefHeight="61.0" prefWidth="238.0" wrapText="true">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Button layoutX="447.0" layoutY="429.0" mnemonicParsing="false" onAction="#onAddServiceClick" prefHeight="107.0" prefWidth="139.0" text="Add Service">
+      <Button layoutX="359.0" layoutY="7.0" mnemonicParsing="false" onAction="#onAddServiceClick" prefHeight="61.0" prefWidth="132.0" text="Add Service">
          <font>
-            <Font size="21.0" />
+            <Font size="17.0" />
          </font>
       </Button>
-      <Label alignment="CENTER" layoutX="85.0" layoutY="40.0" prefHeight="39.0" prefWidth="227.0" text="Services">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Label>
       <Button alignment="CENTER" contentDisplay="CENTER" layoutX="498.0" layoutY="7.0" mnemonicParsing="false" onAction="#onShowInfoClick" prefHeight="78.0" prefWidth="92.0" text="Show Personal Info" textAlignment="CENTER" wrapText="true" />
-      <GridPane fx:id="serviceGridPane" gridLinesVisible="true" layoutX="3.0" layoutY="105.0" prefHeight="50.0" prefWidth="435.0">
+      <GridPane fx:id="serviceGridPane" gridLinesVisible="true" layoutX="7.0" layoutY="80.0" prefHeight="50.0" prefWidth="449.0">
          <columnConstraints>
             <ColumnConstraints fx:id="serviceNameColumn" hgrow="SOMETIMES" maxWidth="312.0" minWidth="10.0" prefWidth="129.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="312.0" minWidth="10.0" prefWidth="130.0" />
@@ -36,7 +31,29 @@
          <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
+         <children>
+            <Label alignment="CENTER" prefHeight="13.0" prefWidth="111.0" text="Service Name">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="17.0" prefWidth="129.0" text="Service Username" GridPane.columnIndex="1">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="17.0" prefWidth="129.0" text="Service Password" GridPane.columnIndex="2">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+         </children>
       </GridPane>
       <Label fx:id="personalInfoLabel" alignment="TOP_LEFT" layoutX="438.0" layoutY="105.0" prefHeight="321.0" prefWidth="159.0" textAlignment="CENTER" wrapText="true" />
+      <Button layoutX="243.0" layoutY="7.0" mnemonicParsing="false" onAction="#onSignOutClick" prefHeight="61.0" prefWidth="103.0" text="Sign out">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
